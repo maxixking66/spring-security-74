@@ -7,4 +7,6 @@ public interface RoleService {
     Role save(Role user);
 
     Role findByName(String name);
+
+    long count();
 }

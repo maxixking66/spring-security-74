@@ -17,10 +17,10 @@ public class CustomerResource {
         return ResponseEntity.ok(
                 Arrays.asList(
                         new User(
-                                1L, "mat", null, "customer", "customer"
+                                1L, "mat", null, "customer", "customer", null
                         ),
                         new User(
-                                2L, "tom", null, "customer", "customer"
+                                2L, "tom", null, "customer", "customer", null
                         )
                 )
         );

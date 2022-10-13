@@ -16,10 +16,10 @@ public class AdminResource {
         return ResponseEntity.ok(
                 Arrays.asList(
                         new User(
-                                1L, "mat", null, "admin", "admin"
+                                1L, "mat", null, "admin", "admin", null
                         ),
                         new User(
-                                2L, "tom", null, "admin", "admin"
+                                2L, "tom", null, "admin", "admin", null
                         )
                 )
         );

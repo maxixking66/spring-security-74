@@ -12,16 +12,21 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class RoleServiceImpl implements RoleService {
 
-    private final RoleRepository userRepository;
+    private final RoleRepository baseRepository;
 
     @Override
     @Transactional
     public Role save(Role user) {
-        return userRepository.save(user);
+        return baseRepository.save(user);
     }
 
     @Override
     public Role findByName(String name) {
-        return userRepository.findByName(name);
+        return baseRepository.findByName(name);
+    }
+
+    @Override
+    public long count() {
+        return baseRepository.count();
     }
 }

@@ -18,10 +18,10 @@ public class UserResource {
         return ResponseEntity.ok(
                 Arrays.asList(
                         new User(
-                                1L, "mat", null, "mohsen", "asgari"
+                                1L, "mat", null, "mohsen", "asgari", null
                         ),
                         new User(
-                                2L, "tom", null, "ali", "alavi"
+                                2L, "tom", null, "ali", "alavi", null
                         )
                 )
         );

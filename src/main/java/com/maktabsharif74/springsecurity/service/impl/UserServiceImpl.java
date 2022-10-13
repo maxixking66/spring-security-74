@@ -12,16 +12,21 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository userRepository;
+    private final UserRepository baseRepository;
 
     @Override
     @Transactional
     public User save(User user) {
-        return userRepository.save(user);
+        return baseRepository.save(user);
     }
 
     @Override
     public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+        return baseRepository.findByUsername(username);
+    }
+
+    @Override
+    public long count() {
+        return baseRepository.count();
     }
 }
