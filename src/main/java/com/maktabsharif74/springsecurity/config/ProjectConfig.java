@@ -2,6 +2,7 @@ package com.maktabsharif74.springsecurity.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -18,7 +19,7 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        InMemoryUserDetailsManager userDetailsManager = new InMemoryUserDetailsManager();
+        /*InMemoryUserDetailsManager userDetailsManager = new InMemoryUserDetailsManager();
 
         UserDetails userDetails = User
                 .withUsername("mohsen")
@@ -27,8 +28,9 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
 
         userDetailsManager.createUser(userDetails);
 
-        auth.userDetailsService(userDetailsManager);
+        auth.userDetailsService(userDetailsManager);*/
 
+        auth.authenticationProvider(authenticationProvider());
     }
 
     @Override
@@ -38,7 +40,7 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
         http.httpBasic();
     }
 
-    /*@Bean
+    @Bean
     public UserDetailsService userDetailsService() {
         InMemoryUserDetailsManager userDetailsManager = new InMemoryUserDetailsManager();
 
@@ -50,10 +52,18 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
         userDetailsManager.createUser(userDetails);
 
         return userDetailsManager;
-    }*/
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
+    }
+
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        return new MyAuthenticationProvider(
+                userDetailsService(),
+                passwordEncoder()
+        );
     }
 }
