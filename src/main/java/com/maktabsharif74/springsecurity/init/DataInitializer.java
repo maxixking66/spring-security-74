@@ -5,6 +5,7 @@ import com.maktabsharif74.springsecurity.domain.User;
 import com.maktabsharif74.springsecurity.service.RoleService;
 import com.maktabsharif74.springsecurity.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -17,6 +18,8 @@ public class DataInitializer {
     private final UserService userService;
 
     private final RoleService roleService;
+
+    private final PasswordEncoder passwordEncoder;
 
     @PostConstruct
     public void init() {
@@ -38,12 +41,12 @@ public class DataInitializer {
             Role customer = roleService.findByName("CUSTOMER");
 
             userService.save(
-                    new User(null, "mohsen", "123456",
+                    new User(null, "mohsen", passwordEncoder.encode("123456"),
                             "mohsen", "asgari", Collections.singleton(admin))
             );
 
             userService.save(
-                    new User(null, "mehrshad", "123456",
+                    new User(null, "mehrshad", passwordEncoder.encode("123456"),
                             "mehrshad", "samaei", Collections.singleton(customer))
             );
         }
