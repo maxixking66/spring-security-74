@@ -35,9 +35,8 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests().anyRequest().hasAnyAuthority("read", "write");
-        http.authorizeRequests().anyRequest().
-                access("hasAuthority('read')");
+//        http.authorizeRequests().anyRequest().hasRole("ADMIN");
+        http.authorizeRequests().anyRequest().hasAnyRole("ADMIN", "CUSTOMER");
         http.formLogin();
         http.httpBasic();
     }
@@ -49,14 +48,14 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
         UserDetails mohsen = User
                 .withUsername("mohsen")
                 .password("123456")
-                .authorities("read").build();
+                .authorities("ROLE_ADMIN").build();
 
         userDetailsManager.createUser(mohsen);
 
         UserDetails mehrshad = User
                 .withUsername("mehrshad")
                 .password("123456")
-                .authorities("write").build();
+                .authorities("ROLE_CUSTOMER").build();
 
         userDetailsManager.createUser(mehrshad);
 
