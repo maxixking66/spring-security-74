@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "user_tbl")
@@ -28,6 +30,9 @@ public class User implements Serializable {
     private String firstName;
 
     private String lastName;
+
+    @ManyToMany
+    private Set<Role> roles = new HashSet<>();
 
     @Override
     public String toString() {
