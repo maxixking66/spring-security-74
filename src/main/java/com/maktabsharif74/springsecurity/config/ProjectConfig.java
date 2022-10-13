@@ -35,7 +35,7 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().authenticated();
+        http.authorizeRequests().anyRequest().hasAuthority("read");
         http.formLogin();
         http.httpBasic();
     }
@@ -44,12 +44,19 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
     public UserDetailsService userDetailsService() {
         InMemoryUserDetailsManager userDetailsManager = new InMemoryUserDetailsManager();
 
-        UserDetails userDetails = User
+        UserDetails mohsen = User
                 .withUsername("mohsen")
                 .password("123456")
                 .authorities("read").build();
 
-        userDetailsManager.createUser(userDetails);
+        userDetailsManager.createUser(mohsen);
+
+        UserDetails mehrshad = User
+                .withUsername("mehrshad")
+                .password("123456")
+                .authorities("write").build();
+
+        userDetailsManager.createUser(mehrshad);
 
         return userDetailsManager;
     }
