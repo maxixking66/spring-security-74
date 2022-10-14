@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ProjectConfig extends WebSecurityConfigurerAdapter {
 
 
@@ -39,13 +41,15 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable();
 
-        http.authorizeRequests()
+        /*http.authorizeRequests()
                 .mvcMatchers("/admin/**").hasRole("ADMIN")
                 .and()
-                .authorizeRequests().mvcMatchers("/customer/**").hasAnyRole("CUSTOMER", "ADMIN")
+                .authorizeRequests().mvcMatchers("/customer/**")
+                .hasAnyRole("CUSTOMER", "ADMIN")
                 .and()
-                .authorizeRequests().anyRequest().authenticated();
+                .authorizeRequests().anyRequest().authenticated();*/
 
+        http.authorizeRequests().anyRequest().authenticated();
 
         http.formLogin();
         http.httpBasic();

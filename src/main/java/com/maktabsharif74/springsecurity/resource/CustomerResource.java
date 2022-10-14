@@ -2,6 +2,7 @@ package com.maktabsharif74.springsecurity.resource;
 
 import com.maktabsharif74.springsecurity.domain.User;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -13,6 +14,7 @@ import java.util.Random;
 public class CustomerResource {
 
     @GetMapping
+    @PreAuthorize(value = "hasAnyRole('ADMIN', 'CUSTOMER')")
     public ResponseEntity<List<User>> getUsers() {
         return ResponseEntity.ok(
                 Arrays.asList(
@@ -27,12 +29,14 @@ public class CustomerResource {
     }
 
     @PostMapping
+    @PreAuthorize(value = "hasAnyRole('ADMIN', 'CUSTOMER')")
     public ResponseEntity<User> create(@RequestBody User user) {
         System.out.println("user: " + user);
         return ResponseEntity.ok(user);
     }
 
     @GetMapping("/count")
+    @PreAuthorize(value = "hasAnyRole('ADMIN', 'CUSTOMER')")
     public ResponseEntity<Long> countAll() {
         return ResponseEntity.ok(
                 new Random().nextLong()
